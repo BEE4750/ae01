@@ -1,5 +1,5 @@
 ---
-title: "BEE 4750 Application Exercise 1: GitHub and Julia"
+title: "BEE 4750 Application Exercise 1: Setting Up GitHub and Julia"
 format:
     html:        
         warning: true
@@ -24,16 +24,14 @@ format-links: [pdf]
 ::: {.callout-important icon=false}
 ### Due Date
 
-Friday, 9/1/23, 9:00pm
+Friday, 8/1/23, 9:00pm
 :::
 
 ::: {.content-visible when-format="html"}
 
-:::{.callout-caution}
+:::{.callout-important}
 
-If you are enrolled in the course, make sure that you use the GitHub Classroom link provided in Ed Discussion, or you may not be able to get help if you run into problems.
-
-Otherwise, you can [find the Github repository here]({{< var github_org.repo >}}/lab01).
+You can [find the Github repository here]({{< var github_org.repo >}}/ae01).
 
 :::
 
@@ -41,176 +39,191 @@ Otherwise, you can [find the Github repository here]({{< var github_org.repo >}}
 
 ## Introduction
 
-### Julia
+In this application exercise, you will: 
 
-Julia is an up-and-coming language, originally developed for scientific programming. While learning a new programming language always has its hiccups, the good news is that if you've programmed in a high-level language such as Python or MATLAB, most Julia concepts should look familiar.
+1. Install git and Julia;
+2. set up a GitHub account;
+3. "clone" a repository to your local machine;
+4. edit a Jupyter notebook; and
+5. write and run some basic code.
 
-If you have not successfully set up Julia, follow the instructions in [Application Exercise 1](ae/ae-01-setup.html) and/or ask for help.
+## Tasks
 
-You can use other editors for this course, but our recommendation is [Visual Studio Code](https://code.visualstudio.com/) with the [Julia extension](https://marketplace.visualstudio.com/items?itemName=julialang.language-julia), which will make life a *lot* simpler! You should have set this up as part of [Application Exercise 1](ae/ae-01-setup.html), but if not, do so now and/or ask for help.
+Your tasks are:
 
-### Jupyter Notebooks
+1. [Install `git`](https://git-scm.com/downloads) on your machine if necessary. 
+2. [Install Julia](#sec-install-julia) using the `juliaup` tool.
+3. [Install and set up VS Code](#sec-install-code) if you don't already have an editor you'd like to use. VS Code is an editor of choice for Julia, as it as a rich and well-supported Julia extension. If you have a different coding environment, please find instructions for how to set it up to edit Julia.
+4. [Set up a GitHub account and clone the application exercise repository](#sec-github).
+5. [Open and edit the notebook](#sec-notebook).
+6. [Export the notebook to a PDF](#sec-export-pdf).
+7. Submit the PDF to Gradescope by the due date.
 
-Jupyter notebooks integrate text and equations in Markdown with Julia (or Python, or R) code. To do this, Jupyter notebooks consist of two types of "cells": code cells and Markdown (text) cells.
+## Instructions
 
-Click once on this section of text. A box will appear around this text (and some areas above/below it) - all of that is within this cell.
+### Install Git
 
-Markdown is a text markup framework for formatting language that makes things look pretty when viewed across different platforms: web browsers, notebooks, and so forth. Text written in Markdown can also include hyperlinks, LaTeX equations, section headers, and images, among other features (most of [the course website](https://viveks.me/climate-risk-analysis) and the lecture notes were all written in Markdown!). [Here is a basic Markdown cheat sheet](https://www.markdownguide.org/cheat-sheet/).
+If you have already installed `git`, you don't need to worry about this section. If you haven't, [download](https://git-scm.com/downloads) the appropriate version for your operating system.
 
-What you are looking at right now is the formatted text after the Markdown is processed. To see the raw Markdown, do one of:
+::: {.callout-warning}
+## Mac Versions
 
-- press `Enter` while that cell is selected, or
-- double-click on that cell.
+If you have a Mac, be aware if you have an Apple Silicon (M1 or M2) Mac or an Intel Mac. Many of the installations you will go through in this exercise have different versions for each processor type, and the program may not work properly if you still the wrong version. There's nothing that can't be undone, but it's easier to be install the correct version first!
+:::
 
----
+### Install Julia {#sec-install-julia}
 
-A couple of the features you will see in this Markdown cell:
+I recommend installing Julia using the `juliaup` tool, which will let you easily manage versions in the future and works seamlessly with VS Code. The instructions can be found at the [JuliaUp GitHub repository](https://github.com/JuliaLang/juliaup), but we will summarize them here.
 
-- The `---` command creates a horizontal line. This is also nice for separating sections.
-- Backticks (`` `...` ``) can be used to format and highlight code, keystrokes, etc.
-- The `#` sign is used to create a new section header; two `#` signs (`##`) is used to create a new subsection header; `###` creates a subsubsection, and so on.
-- You can create a bulleted list by using the asterisk `*` or a dash `-` and a space.
-- You can create regular text by just typing as usual.
-- You can create **bold-faced text** by wrapping it with two asterisks on both sides.
-- You can create *italicized text* by wrapping it with a single asterisk on both sides.
-- To create a new paragraph, you must include a blank line between the old and new paragraphs.
+#### Installing Juliaup on Windows
 
-At this point you might be wondering how to turn this cell back into the fully formatted Markdown text instead of the raw Markdown you're probably still looking at. You have a couple of options, depending on your platform, but the most consistent is to type `Shift + Enter` to **execute** the cell (this is also how to run code, but more on that later).
+If your computer uses Windows, you can install Juliaup [from the Windows Store](https://www.microsoft.com/store/apps/9NJNWW8PVKMN).
 
-Additionally, you will frequently need to create new cells in your Jupyter notebooks. How you do this will depend on how you interact with the notebook, but try to figure this out now.
+#### Installing Juliaup on MacOS
 
-One tip is to think carefully about what bits of code should be in the same cell, as you typically only see output from the last command in a cell. For example, compare the following:
-
-```{julia}
-x = 5
-sin(x)
+If you have a Mac, open a terminal (such as the Terminal app) and enter:
+```shell
+curl -fsSL https://install.julialang.org | sh
 ```
 
-with 
+#### Installing Julia 1.8.5
 
-```{julia}
-x = 5
+Once you install Juliaup, install Julia version 1.8.5 by opening a terminal (in MacOS or Linux) or the command line (in Windows) and entering:
+```shell
+julia add 1.8.5
+julia default 1.8.5
 ```
 
-```{julia}
-sin(x)
+This will install Julia 1.8.5 and make it the default version, which should maximize package compatibility throughout this course. Going forward, if you want to add new versions or change the default, you can [follow the Juliaup instructions](https://github.com/JuliaLang/juliaup#using-juliaup).
+
+
+### Install and Set Up VS Code {#sec-install-code}
+
+You can skip this section if you already have a coding environment you like; just set it up to work with Julia. Otherwise, VS Code is as close to an officially supported editor for Julia as you can get. We will follow [this guide for setting up VS Code with Julia](https://www.julia-vscode.org/docs/dev/gettingstarted/).
+
+#### Installing VS Code
+
+You can download it [here](https://code.visualstudio.com/download); open the downloaded file to install.
+
+#### Install the Julia Extension
+
+1. Open VS Code. 
+2. Select View and click Extensions to open the Extension View. This view can also be found on the sidebar with the following logo: ![VS Code Extensions View Logo](figures/vs-code-extensions.png).
+3. Search for `julia`in the search box. Click the green install button.
+4. Restart VS Code once the installation is complete. It should automatically find your Julia installation; talk to Vivek if not.
+
+The Julia VS Code extension offers you some nice features. You can start a REPL (an interactive Julia coding environment) by opening the "Command Palette" (View -> Command Palette, or CTRL/CMD+SHIFT+P) and typing "REPL" to bring up "Julia: Start REPL". You can also create `*.jl` files to write Julia code and execute line by line. However, we will primarily use Jupyter notebooks in this class, but this might be useful for testing code or for your project.
+
+#### Install the Jupyter Notebook Extension
+
+The Jupyter Notebook extension allows you to export a Jupyter notebook to PDF or to HTML and then to PDF.
+
+::: {.callout-tip}
+## PDF Export for Gradescope
+
+You will need to export every notebook to a PDF for submission to Gradescope. Direct export to PDF requires a LaTeX installation. If you would like to go this route, please look at [the LaTeX installation instructions for your operating system](https://www.latex-project.org/get/).
+
+Otherwise, exporting to HTML and then using your browser to save the resulting page to a PDF is a perfect solution.
+:::
+
+Follow the same instructions as above, but search for `jupyter` and install the Jupyter extension. Restart VS Code.
+
+
+### Set Up GitHub {#sec-github}
+
+#### Create GitHub Account
+
+If you already have a GitHub account, you can use that for this course and do not need to create a new account.
+
+Otherwise, [create an account](https://github.com/join). It doesn't have to be linked to your Cornell email or use your Cornell NetID.
+
+For labs and homework assignments (we will work on Lab 1 in class on Friday and Homework 1 is available), you should use the GitHub Classroom link to "accept" the assignment provided on Ed Discussion, which will give you your own GitHub repository for that assignment. The first time you click one of these links, you will need to link your place on the course roster with your GitHub account.
+
+When application exercises require notebook use (which is the case here, but will not always be), you can follow the workflow in these next steps, and will be prompted to do so in the instructions for that exercise.
+
+You can do almost everything that you will need to do for this course with GitHub directly through VS Code, or you can use the GitHub UI or the Terminal. We will assume in these instructions that you will just work through VS Code.
+
+#### Clone the Repository
+
+Once you have created your account, navigate to the [GitHub repository for the assignment](https://github.com/BEE4750/ae01). You will have your own repository for assignments that you accept through the GitHub Classroom links, but for now, let's use this common repository. Click the green "Code" button, and copy the URL by clicking on the clipboard icon.
+
+![Code Clone Interface on GitHub](figures/github-clone.png)
+
+Next, open a new VS Code window. You should see the following options.
+
+![VS Code New Window](figures/vs-code-clone.png)
+
+Click "Clone Git Repository" and select "Clone from GitHub" when it pops up. Paste the URL for the repository into the search bar and select the repository that comes up. You will then be prompted to pick a location to save the repository. I recommend keeping a single master folder for the course, which can then be divided into `aes` (for application exercises), `labs`, and `hws`. For example:
+
 ```
-
-In Julia, you can also suppress the output of a command with a semi-colon:
-
-```{julia}
-sin(x);
+BEE4750
+|---aes
+|---labs
+|---hws
 ```
+Then, pick the appropriate subdirectory. When you clone the repository, it will automatically create a directory for the repository, so you do not need to create the `ae01` repository explicity. Just select `aes`.
 
-which can help if you want to split some code out for clarity or to insert some text prior to it, but don't want to clutter the notebook with its output.
+Once you do that, you will be prompted to open the new folder. The next time you want to work on the notebook, pick "Open Folder" from the initial VS Code New Window page and find the folder that was created (for example `aes/ae01`.) Opening a folder is recommended, as it will provide a more convenient interface for working with the entire repository, versus opening a single file.
 
-For code cells, to execute the commands within the cell, we also press `Shift+Enter`.
+::: {.callout-important}
+## Working with GitHub Repositories
 
-Finally, **make sure that you evaluate all of the code cells in order before submitting**. One bad outcome with notebooks occurs when cells are evaluated out of order, so fixed bugs and edits in previous cells do not get a chance to propagate down. You can do this with the `Run All` command in whichever interface you're using to edit your notebook.
+In this assignment, we're only asking you to clone a Github repository. In Lab 1, you will be asked to "commit" and "push" your files to synchronize your local repository with your personal GitHub Classroom repository, which allows you to keep code updated. This is useful for ensuring that you have a backup of your files with tracked changes (for example, if you try to redo a problem but break something), and will make it easy to ask for help on Ed Discussion (just add a link to your repository with the current version of your code that isn't working as intended).
+:::
 
-### Julia Basics
+### Open and Edit The Notebook {#sec-notebook}
 
-There are many tutorials and references for Julia, including a [basics overview on the class website](../tutorials/julia-basics.html). Please feel free to reference these as you work through any part of the course.
+#### Open Notebook and Select Julia Kernel
 
+Open the `ae01.ipynb` file. 
 
-### Formatting Math
+::: {.callout-note}
+## `.ipynb` files    
+The `.ipynb` extension is for Jupyter notebooks, and this should be the primary file type you work with on most assignments for this course. 
 
-It will often be helpful to include nicely-formatted mathematics in a notebook. Markdown accomodates this using LaTeX syntax. A LaTeX cheatsheet is available on the class website, and many other guides exist online. 
+Jupyter notebooks consist of two types of "cells, which are editable areas":
+1. "Text" cells, in which you can write text using [Markdown](https://www.datacamp.com/tutorial/markdown-in-jupyter-notebook), which uses minimal styling to format text. You can see the "raw" Markdown for any cell by double clicking on it to make it editable. Text cells can also be used to format mathematics using [LaTeX syntax](https://viveks.me/environmental-systems-analysis/tutorials/latex-notebook.html), but no LaTeX is actually required for this to work.
+2. "Code" cells, which contain code which can be evaluated. The language of the code should match the kernel used for compilation (see below). A "play" button will appear next to a code cell which can be used to evaluate the cell's contents. **Be careful that running cells out of order can result in errors or bad results**, as each cell is evaluated independently, so if a function or variable is specified in a prior cell which is not executed, a later cell which requires those values will not work properly. Before submitting, make sure to evaluate all cells in order (for example, using the "Run All" button at the top of the VS Code window).
+:::
 
-Below is an example of a formatted equation: $$x = 5.$$
+In the upper right corner, you should see an icon similar to this (but perhaps with different text): 
 
-### Looking For Help
+![Kernel Selection Button](figures/kernel-selection.png). 
 
-There is no shame in using Google, or other resources, for help when programming. There are many, many times when you can't quite get the syntax to work, can't quite figure out the right package or command to use, or are feeling too lazy or overwhelmed (I'm not judging either of those!) to dig through the documentation. Some good resources include:
+This is where you will click to select the "kernel" which is used to compile the Jupyter notebook. Click it, and you will be prompted to select a kernel. You likely need to select "Select Another Kernel...", then "Julia Language Support," and then "Julia 1.8 channel."
 
-- [Stack Overflow](https://stackoverflow.com/) is a treasure trove of answers;
-- The [official Julia forum](https://discourse.julialang.org/) and the [Julia Subreddit](https://www.reddit.com/r/Julia/) are also very useful. 
+#### Edit Notebook
 
-You are also highly encouraged to post on [Ed Discussion](https://us.edstem.org), though getting a response might be less immediate. Just be mindful that to get good answers, [you have to help people help you](https://stackoverflow.com/help/how-to-ask), and **make sure to give credit to any resources that were helpful**!
+Finally, let's make some edits to the notebook. 
 
-
-## Exercises
-
-Use your understanding of Julia syntax to complete the following (hopefully short) exercises. Convert your completed notebook to a PDF and submit it to the Gradescope Assignment "Lab 1".
-
-**Remember to**:
-
-- Evaluate all of your code cells, in order (using a `Run All` command). This will make sure all output is visible and that the code cells were evaluated in the correct order.
-- Tag each of the problems when you submit to Gradescope; a 10% penalty will be deducted if this is not done.
-
-### Exercise 1
-
-Given two numeric arrays `x` and `y`, write a function to compute their dot product if they have equal length, and return an error if not (this is useful for debugging!). Use the following code as a starting point. 
-
-```{julia}
-#| eval: false
-
-function dot_product(x, y)
-    if ... # insert test condition for equal lengths
-        # compute and return dot product
-    else
-        throw(DimensionMismatch("length of x not equal to length of y"))
+1. Double click the text cell at the top of the notebook that includes the "**Name**:" and "**ID**:" prompts. Add your name and Cornell NetID.
+2. Create a code cell below this by hovering your cursor over the bottom of this text cell. You should see the following buttons pop up:
+    ![Create New Cell](figures/new-cell.png)
+    Click on "+Code" and the new cell should appear.
+3. In this code cell, write a function to compute the square of a value $x$. The code should have the following basic structure:
+    ```{julia}
+    # the following is how you define a function 
+    # called "square_function" which accepts an input argument x.
+    function square_function(x)
+        # put your code here
+        return # add in the variable or value that should be returned
     end
-end
-```
+    ```
+    Test your function by computing $2^2$ and $4.5^2$.
 
-Here are some tests to make sure your code works as intended. Tests like these are useful to make sure everything works as intended. One reason to split your code up into functions is that it makes it straightforward to write tests to make sure each piece of your code works, which makes it easier to identify where errors are occuring.
+### Export the Notebook {#sec-export-pdf}
 
-```{julia}
-#| eval: false
+Congratulations, you've set up Julia and GitHub and learned the basics of working with Jupyter Notebooks! The last step is to export the notebook for submission to Gradescope.
 
-dot_product([1 2 3], [4 5 6])
-```
+You should see the following menu bar at the top of the VS Code window:
+![Notebook Menu Bar](figures/vs-code-top-bar.png)
 
-If you know the value you should get, you can write a more formal test using the `@assert` macro, which is a good way to "automate" checking (since you get an obvious error if the code doesn't work as desired):
-```{julia}
-#| eval: false
+1. Click "Run All" at the top to execute all of the cells in order. **Please do not forget to do this before exporting and submitting or you may lose points because your code has not been executed or may have errors**.
+2. Click the ellipsis ("...") and select "Export". If you have LaTeX installed, you can click "PDF"; otherwise, click "HTML." Save the file, and then when prompted, open the file. This should open the page in your browser; go to the print interface and save as a PDF.
+    ::: {.callout-tip}
+    When printing to PDF, long lines will run off the edge of code cells, which may result in comments or code being hidden. If you see this, go back to the notebook and break up long lines into shorter onces (for example, see the comment in the above code cell) to ensure key parts of your results aren't missing.
+    :::
 
-@assert dot_product([1 2 3], [4 5 6]) == 32
-```
+Great! That's the basic workflow for every assignment in this course. 
 
-Let's also make sure we get an error when the dimensions of the two vectors don't match:
-```{julia}
-#| eval: false
-
-dot_product([1 2 3], [4 5])
-```
-
-### Exercise 2
-
-This problem involves implementing Newton's method for computing square roots; it was shamelessly copied from MIT's [Introduction to Computational Thinking](https://computationalthinking.mit.edu/Spring21/hw0/). You will use a `while` loop instead of the `for` loop shown above.
-
-Implement the following algorithm in a function `newton_sqrt`:
-
-Given $x > 0$:
-
-1. Take a guess $a$.
-2. Divide $x$ by $a$.  
-3. Update $a$ as the average of $x/a$ and $a$.
-4. Repeat until $x/a$ is within a tolerance of $\varepsilon$ from $a$.
-5. Return $a \approx \sqrt{x}$.
-
-```{julia}
-#| eval: false
-# insert your code here
-
-```
-
-Use your `newton_sqrt` function to compute $\sqrt{2}$ to within a tolerance of $\varepsilon = 0.01$.
-
-```{julia}
-#| eval: false
-# insert your code here
-
-```
-
-### Exercise 3: Making a Plot
-
-Write a function to compute the square of an integer `x`. Evaluate this function for integers between $x=-5$ and $x=5$ and make a plot of the squared values (you can find a quick guide to making various types of plots [here](../tutorials/julia-plots.html)). Make sure to label your axes. 
-
-```{julia}
-#| eval: false
-# insert your code here
-
-```
-
+Now you have your PDF that you can submit to Gradescope. Make sure that you tag pages corresponding to relevant problems to avoid a 10% penalty. For this exercise, tag page 1 for Problem 1 (submission of the PDF) and the page with your square function code for Problem 2.
