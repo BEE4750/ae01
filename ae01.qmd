@@ -200,9 +200,9 @@ Jupyter notebooks consist of two types of "cells, which are editable areas":
 2. "Code" cells, which contain code which can be evaluated. The language of the code should match the kernel used for compilation (see below). A "play" button will appear next to a code cell which can be used to evaluate the cell's contents. **Be careful that running cells out of order can result in errors or bad results**, as each cell is evaluated independently, so if a function or variable is specified in a prior cell which is not executed, a later cell which requires those values will not work properly. Before submitting, make sure to evaluate all cells in order (for example, using the "Run All" button at the top of the VS Code window).
 :::
 
-In the upper right corner, you should see an icon similar to @fig-kernel-select (but perhaps with different text): 
+In the upper right corner, you should see an icon similar to @fig-kernel-select (but perhaps with different text).
 
-![Kernel Selection Button](figures/kernel-selection.png){#fig-kernel-select}. 
+![Kernel Selection Button](figures/kernel-selection.png){#fig-kernel-select}
 
 This is where you will click to select the "kernel" which is used to compile the Jupyter notebook. Click it, and you will be prompted to select a kernel. You likely need to select "Select Another Kernel...", then "Julia Language Support," and then "Julia 1.8 channel."
 
@@ -241,7 +241,8 @@ The `@show` macro nicely formats output to include the name of the output that's
 
 Congratulations, you've set up Julia and GitHub and learned the basics of working with Jupyter Notebooks! The last step is to export the notebook for submission to Gradescope.
 
-You should see the menu bar shown in @fig-notebook-menu at the top of the VS Code window:
+You should see the menu bar shown in @fig-notebook-menu at the top of the VS Code window.
+
 ![Notebook Menu Bar](figures/vs-code-top-bar.png){#fig-notebook-menu}
 
 1. Click "Run All" at the top to execute all of the cells in order. **Please do not forget to do this before exporting and submitting or you may lose points because your code has not been executed or may have errors**.
